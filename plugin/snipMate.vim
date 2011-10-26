@@ -268,4 +268,18 @@ fun! ShowAvailableSnips()
 	call complete(col, matches)
 	return ''
 endf
+
+
+" snipMate's Trigger Completion
+" http://www.vim.org/scripts/script.php?script_id=1879
+fun! GetSnipsInCurrentScope()
+  let snips = {}
+  for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
+    call extend(snips, get(s:snippets, scope, {}), 'keep')
+    call extend(snips, get(s:multi_snips, scope, {}), 'keep')
+  endfor
+  return snips
+endf
+
+
 " vim:noet:sw=4:ts=4:ft=vim
